@@ -30,3 +30,7 @@ var Route = module.exports = mongoose.model('Route', routesSchema);
 module.exports.getRoutes = function(callback, limit){
     Route.find(callback).limit(limit);
 }
+
+module.exports.getRoutesById = (id, callback)=>{
+    Route.findById(id, callback);
+}

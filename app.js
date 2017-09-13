@@ -18,12 +18,20 @@ app.get('/', function(req, res){
 app.get('/api/routes', (req, res) => {
     Route.getRoutes(function(err, routes){
         if(err){
-            throw err;
-        }
+            throw err; }
         else{
             console.log(routes)
-            res.json(routes);
-        }
+            res.json(routes);}
+    })
+})
+
+app.get('/api/routes/:id', (req, res) => {
+    Route.getRoutesById(req.params.id, function(err, route){
+        if(err){
+            throw err;}
+        else{
+            console.log(route);
+            res.json(route); }
     })
 } )
  
