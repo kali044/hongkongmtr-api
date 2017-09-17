@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
 
-//schema
+//routes schema
 var routesSchema = mongoose.Schema({
     route_type:{
         type:String,
-        requried: true
+        requrie: true
     },
     route_english_name:{
         type:String,
@@ -24,13 +24,34 @@ var routesSchema = mongoose.Schema({
     }
 });
 
+//Route variable
 var Route = module.exports = mongoose.model('Route', routesSchema);
 
-//get routes
+//GET queries
 module.exports.getRoutes = function(callback, limit){
     Route.find(callback).limit(limit);
 }
 
 module.exports.getRoutesById = (id, callback)=>{
     Route.findById(id, callback);
+}
+module.exports.getRoutesByRouteName = (name, callback) =>{
+    Route.findOne({ "route_english_name" : name}, callback);
+}
+
+module.exports.addRoutes = (content, callback)=>{
+    Route.create(content, callback);
+}
+
+module.exports.upRoutes = (id, content, callback) => {
+    var query = {_id: id};
+    var update = {
+        route_type: content.route_type
+    }
+    Route.findOneAndUpdate(query, update, callback);
+}
+
+module.exports.rmvRoutes = (id, callback) => {
+    var query = {_id: id};
+    Route.findOneAndRemove(query, callback);
 }
