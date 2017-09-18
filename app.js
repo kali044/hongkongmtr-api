@@ -93,6 +93,41 @@ app.get('/api/routesinfo', (req, res)=>{
     })
 })
 
+app.post('/api/routesinfo', (req, res)=>{
+    var content = req.body;
+    Routeinfo.addRouteInfo(content, (err, content) => {
+        if (err){
+            throw err;}
+        else{
+            res.json(content);
+        }
+    })
+})
+
+app.delete('/api/routesinfo/:id', (req, res) =>{
+
+    Routeinfo.deleteRouteInfo(req.params.id, (err, result) =>{
+        if(err){
+            throw err;
+        }
+        else{
+            res.json(result); 
+        }
+    })
+})
+
+app.put('/api/routesinfo/:id', (req, res) =>{
+    var content = req.body;
+    Routeinfo.upRouteInfo(req.params.id, content, (err, content)=>{
+        if(err){
+            throw err;
+        }
+        else{
+            res.json(content);
+        }
+    })
+})
+
 app.get('/api/routesinfo/:routename', (req, res)=>{
     Routeinfo.getRouteInfoByName(req.params.routename, function(err, routeinfos){
         if (err){
